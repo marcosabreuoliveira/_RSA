@@ -55,7 +55,7 @@ modExp b 0 m = 1
 modExp b e m = t * modExp ((b * b) `mod` m) (shiftR e 1) m `mod` m
   		   where t = if testBit e 0 then b `mod` m else 1
 
-int2ascii :: [Integer] -> [Char]
+int2ascii :: [Int] -> [Char]
 int2ascii n = [toEnum x :: Char | x <- n]
 
 {-Transforma um inteiro em uma lista de caracteres-}
