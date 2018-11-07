@@ -2,6 +2,7 @@ import Data.Bits
 import System.Random
 import Control.Monad.Fix
 import Math.NumberTheory.Primes.Testing.Probabilistic
+import Data.Char
 {-Retorna um número primo de nbits-}
 rndPrime :: Int -> IO Integer
 rndPrime bits =
@@ -55,17 +56,15 @@ modExp b 0 m = 1
 modExp b e m = t * modExp ((b * b) `mod` m) (shiftR e 1) m `mod` m
   		   where t = if testBit e 0 then b `mod` m else 1
 
-int2ascii :: [Int] -> [Char]
-int2ascii n = [toEnum x :: Char | x <- n]
-
 {-Transforma um inteiro em uma lista de caracteres-}
-i2osp :: Integer -> [Integer]
+i2osp :: Integer -> [Char]
 i2osp x
-  | x <= 0 = []
-  | otherwise = x `mod` (toInteger 256) : i2osp (x `div` (toInteger 256))
+    | x <= 0 = []
+    | otherwise = chr(fromInteger (x `mod` (toInteger 256))) : i2osp (x `div` (toInteger 256))
 
 {-Transforma uma lista de caracteres em um inteiro-}
-os2ip teste = sum [(fromEnum (fst x)) * 256 ^ (snd x) | x <- (zip teste [0..(length teste -1)])]
+os2ip:: [Char] -> Integer
+os2ip teste = sum [(toInteger $ fromEnum (fst x)) * 256 ^ (snd x) | x <- (zip teste [0..(length teste -1)])]
 
 encrypt :: Integer -> Integer -> Integer -> Integer
 encrypt m e n = modExp m e n
