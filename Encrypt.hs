@@ -1,3 +1,18 @@
+module Encrypt
+( rndPrime
+, rndPrimes
+, totiente
+, fullMod
+, mdcE
+, getPrivateExponent
+, getPublicExponent
+, modExp
+, i2osp
+, os2ip
+, encrypt
+, decrypt
+) where
+
 import Data.Bits
 import System.Random
 import Control.Monad.Fix
